@@ -1,9 +1,12 @@
 import http.client
 from time import sleep
 import re
-if __name__ == "__main__":
+def foo(n):
+    return eval(n)
+
+def HttpGetResponse():
     num_of_randno = "1"
-    minimum = "1"
+    minimum = "10"
     maximum = "100"
     col = "1"
     base = "10"
@@ -14,7 +17,28 @@ if __name__ == "__main__":
     print(URL)
     response = connection.getresponse()
     data1 = response.read().decode("utf-8")
-    # print(type(data1))
-    # x = re.findall("[0-9]+", data1)
-    print("The random number generated from Random.org is:"+data1)
+    print(eval(data1))
+    # res = list(map(foo, data1.split('\n')))
     connection.close()
+    return eval(data1)
+
+if __name__ == "__main__":
+    # data1 = [14, 11, 2, 6, 18, 23, 7, 21, 1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28, 22, 4, 12, 5, 15]
+    seed = HttpGetResponse()
+    # seed = 15
+    print(seed)
+    data1 = [0] * 30
+    data1[0] = seed*3 % 31
+    for i in range(1,30):
+        data1[i] = data1[i-1]*3 % 31
+    print(data1)
+    data1 = [x/31 for x in data1]
+    print(data1)
+    data1.sort()
+    data2 = data1.copy()
+    print(data2)
+    for i in range(30):
+        data1[i] = ((i+1)/30) - data1[i]
+        data2[i] = data2[i] - ((i)/30) 
+    print(max(data1))
+    print(max(data2))
