@@ -1,4 +1,5 @@
 import http.client
+import pprint
 from time import sleep
 import re
 def foo(n):
@@ -40,7 +41,9 @@ if __name__ == "__main__":
     for i in range(30):
         data1[i] = ((i+1)/30) - data1[i]
         data2[i] = data2[i] - ((i)/30)
-    print("Tablulated Values for (j/n - xj) : " + str(data1)) 
-    print("Tablulated Values for (xj - j-1/n) :" + str(data2)) 
+    print("Tablulated Values for (j/n - xj) : ")
+    pprint.pprint(data1, indent = 1) 
+    print("Tablulated Values for (xj - j-1/n) :")
+    pprint.pprint(data2) 
     print("Maximum Observed Value That was calcluated from the KS Test is :" + str(max(max(data1), max(data2))))
     # print(max(data2))
